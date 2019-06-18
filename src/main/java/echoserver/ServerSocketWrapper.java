@@ -14,6 +14,7 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
     private Socket socket;
     private BufferedReader input;
     private PrintWriter output;
+    private String clientMessage = "";
 
     public ServerSocketWrapper(int portNumber) {
         this.portNumber = portNumber;
@@ -22,6 +23,7 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
     @Override
     public void run() {
         createSocketAndListen();
+        receiveMessage();
     }
 
     public void createSocketAndListen() {
@@ -37,8 +39,12 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
         }
     }
 
-    public String receiveMessage() {
-        return null;
+    public void receiveMessage() {
+        try {
+            clientMessage = input.readLine();
+        } catch (IOException e) {
+            System.out.println("Error receiving message from client: " + e.getMessage());
+        }
     }
 
     public void sendMessage(String message) {
