@@ -23,7 +23,7 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
     @Override
     public void run() {
         createSocketAndListen();
-        receiveMessage();
+        receiveClientMessage();
     }
 
     public void createSocketAndListen() {
@@ -39,7 +39,7 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
         }
     }
 
-    public void receiveMessage() {
+    public void receiveClientMessage() {
         try {
             clientMessage = input.readLine();
         } catch (IOException e) {
@@ -47,7 +47,7 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
         }
     }
 
-    public void sendMessage(String message) {
+    public void sendClientMessage(String message) {
 
     }
 

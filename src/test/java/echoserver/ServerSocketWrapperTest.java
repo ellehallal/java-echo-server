@@ -32,7 +32,7 @@ class ServerSocketWrapperTest {
         var socketWrapper = mockServerSocketWrapperSetup();
 
         socketWrapper.run();
-        var receivedMessage = socketWrapper.getReceivedMessage();
+        var receivedMessage = socketWrapper.getReceivedClientMessage();
 
         assertEquals("hello", receivedMessage);
     }

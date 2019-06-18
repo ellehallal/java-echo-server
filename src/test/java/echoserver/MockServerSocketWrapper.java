@@ -9,7 +9,7 @@ public class MockServerSocketWrapper extends Thread implements SocketWrapper {
     private final BufferedReader input;
     private final PrintWriter output;
     private boolean isCreateSocketAndListenCalled = false;
-    private String receivedMessage;
+    private String receivedClientMessage;
 
     public MockServerSocketWrapper(BufferedReader input, PrintWriter output) {
         this.input = input;
@@ -19,23 +19,23 @@ public class MockServerSocketWrapper extends Thread implements SocketWrapper {
     @Override
     public void run() {
         createSocketAndListen();
-        receiveMessage();
+        receiveClientMessage();
     }
 
     public void createSocketAndListen() {
         this.isCreateSocketAndListenCalled = true;
     }
 
-    public void receiveMessage() {
+    public void receiveClientMessage() {
         try {
-            receivedMessage = input.readLine();
+            receivedClientMessage = input.readLine();
         } catch (IOException e) {
             System.out.println("Error receiving message: " + e.getMessage());
         }
 
     }
 
-    public void sendMessage(String message) {
+    public void sendClientMessage(String message) {
 
     }
 
@@ -47,7 +47,7 @@ public class MockServerSocketWrapper extends Thread implements SocketWrapper {
         return isCreateSocketAndListenCalled;
     }
 
-    public String getReceivedMessage() {
-        return receivedMessage;
+    public String getReceivedClientMessage() {
+        return receivedClientMessage;
     }
 }
