@@ -25,6 +25,7 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
         createSocketAndListen();
         receiveClientMessage();
         sendClientMessage();
+        close();
     }
 
     public void createSocketAndListen() {
@@ -53,6 +54,12 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
     }
 
     public void close() {
-
+        try {
+            input.close();
+            output.close();
+            socket.close();
+        } catch (IOException e) {
+            System.out.println("Socket closing error: " + e.getMessage());
+        }
     }
 }

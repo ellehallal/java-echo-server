@@ -48,5 +48,11 @@ class ServerSocketWrapperTest {
 
     @Test
     void close() {
+        var socketWrapper = mockServerSocketWrapperSetup();
+
+        socketWrapper.run();
+        var isCloseCalled = socketWrapper.isCloseCalled();
+
+        assertTrue(isCloseCalled);
     }
 }
