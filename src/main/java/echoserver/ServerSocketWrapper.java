@@ -23,6 +23,7 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
     @Override
     public void run() {
         createSocketAndListen();
+
         while(true) {
             receiveClientMessage();
             if(clientMessage.equals(SocketAction.exit.toString())) {
