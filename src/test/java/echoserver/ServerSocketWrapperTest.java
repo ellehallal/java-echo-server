@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ServerSocketWrapperTest {
 
-    MockServerSocketWrapper mockServerSocketWrapperSetup() {
-        var message = new StringReader("hello\n");
+    MockServerSocketWrapper mockServerSocketWrapperSetup(String fakeMessage) {
+        var message = new StringReader(fakeMessage);
         var input = new BufferedReader(message);
         var output = new PrintWriter(new StringWriter());
         return new MockServerSocketWrapper(input, output);
@@ -18,7 +18,7 @@ class ServerSocketWrapperTest {
 
     @Test
     void isCreateSocketAndListenCalledIsTrue() {
-        var socketWrapper = mockServerSocketWrapperSetup();
+        var socketWrapper = mockServerSocketWrapperSetup("hello\n");
 
         socketWrapper.run();
 
@@ -27,7 +27,7 @@ class ServerSocketWrapperTest {
 
     @Test
     void receivedMessageEqualsHello() {
-        var socketWrapper = mockServerSocketWrapperSetup();
+        var socketWrapper = mockServerSocketWrapperSetup("hello\n");
 
         socketWrapper.run();
         var receivedMessage = socketWrapper.getReceivedClientMessage();
@@ -39,7 +39,7 @@ class ServerSocketWrapperTest {
     void sendMessage() {
         var output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
-        var socketWrapper = mockServerSocketWrapperSetup();
+        var socketWrapper = mockServerSocketWrapperSetup("hello\n");
 
         socketWrapper.run();
 
@@ -48,7 +48,7 @@ class ServerSocketWrapperTest {
 
     @Test
     void close() {
-        var socketWrapper = mockServerSocketWrapperSetup();
+        var socketWrapper = mockServerSocketWrapperSetup("hello\n");
 
         socketWrapper.run();
         var isCloseCalled = socketWrapper.isCloseCalled();
