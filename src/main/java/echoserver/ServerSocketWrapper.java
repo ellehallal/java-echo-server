@@ -23,9 +23,15 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
     @Override
     public void run() {
         createSocketAndListen();
-        receiveClientMessage();
-        sendClientMessage();
-        close();
+
+        while(true) {
+            receiveClientMessage();
+            if(clientMessage.equals(SocketAction.exit.toString())) {
+                close();
+                break;
+            }
+            sendClientMessage();
+        }
     }
 
     public void createSocketAndListen() {
@@ -35,6 +41,7 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
             var inputStreamReader = new InputStreamReader(socket.getInputStream());
             input = new BufferedReader(inputStreamReader);
             output = new PrintWriter(socket.getOutputStream(), true);
+            System.out.println("Client connected");
 
         } catch (IOException e) {
             System.out.println("Server error: " + e.getMessage());
@@ -42,7 +49,6 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
     }
 
     public void receiveClientMessage() {
-        System.out.println("Client connected");
         try {
             clientMessage = input.readLine();
         } catch (IOException e) {
@@ -56,6 +62,7 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
 
     public void close() {
         try {
+            System.out.println("Closing connection...");
             input.close();
             output.close();
             socket.close();

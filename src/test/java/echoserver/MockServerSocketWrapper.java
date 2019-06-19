@@ -10,6 +10,7 @@ public class MockServerSocketWrapper extends Thread implements SocketWrapper {
     private final PrintWriter output;
     private boolean isCreateSocketAndListenCalled = false;
     private String receivedClientMessage;
+    private boolean isSendClientMessageCalled = false;
     private boolean isCloseCalled = false;
 
     public MockServerSocketWrapper(BufferedReader input, PrintWriter output) {
@@ -20,9 +21,16 @@ public class MockServerSocketWrapper extends Thread implements SocketWrapper {
     @Override
     public void run() {
         createSocketAndListen();
-        receiveClientMessage();
-        sendClientMessage();
-        close();
+
+        while(true) {
+            receiveClientMessage();
+            if(receivedClientMessage.equals(SocketAction.exit.toString())) {
+                close();
+                break;
+            }
+            sendClientMessage();
+            break;
+        }
     }
 
     public void createSocketAndListen() {
@@ -39,6 +47,7 @@ public class MockServerSocketWrapper extends Thread implements SocketWrapper {
 
     public void sendClientMessage() {
         System.out.println("Echo from server: " + receivedClientMessage);
+        isSendClientMessageCalled = true;
     }
 
     public void close() {
@@ -55,5 +64,9 @@ public class MockServerSocketWrapper extends Thread implements SocketWrapper {
 
     public boolean isCloseCalled() {
         return isCloseCalled;
+    }
+
+    public boolean isSendClientMessageCalled() {
+        return isSendClientMessageCalled;
     }
 }

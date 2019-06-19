@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ServerSocketWrapperTest {
 
@@ -36,23 +35,27 @@ class ServerSocketWrapperTest {
     }
 
     @Test
-    void sendMessage() {
+    void sentMessageIncludesHello() {
         var output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
         var socketWrapper = mockServerSocketWrapperSetup("hello\n");
 
         socketWrapper.run();
+        var isSendClientMessageCalled = socketWrapper.isSendClientMessageCalled();
 
         assertEquals("Echo from server: hello\n", output.toString());
+        assertTrue(isSendClientMessageCalled);
     }
 
     @Test
-    void close() {
-        var socketWrapper = mockServerSocketWrapperSetup("hello\n");
+    void closeIsCalledWhenClientMessageEqualsExit() {
+        var socketWrapper = mockServerSocketWrapperSetup("exit\n");
 
         socketWrapper.run();
         var isCloseCalled = socketWrapper.isCloseCalled();
+        var isSendClientMessageCalled = socketWrapper.isSendClientMessageCalled();
 
         assertTrue(isCloseCalled);
+        assertFalse(isSendClientMessageCalled);
     }
 }
