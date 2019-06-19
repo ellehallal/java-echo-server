@@ -6,20 +6,20 @@ import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ServerSocketWrapperTest {
+class EchoServerTest {
 
     MockServerSocketWrapper mockServerSocketWrapperSetup(String fakeMessage) {
         var message = new StringReader(fakeMessage);
         var input = new BufferedReader(message);
-        var output = new PrintWriter(new StringWriter());
-        return new MockServerSocketWrapper(input, output);
+        return new MockServerSocketWrapper(input);
     }
 
     @Test
     void isCreateSocketAndListenCalledIsTrue() {
         var socketWrapper = mockServerSocketWrapperSetup("hello\n");
+        var echoServer = new EchoServer(socketWrapper);
 
-        socketWrapper.run();
+        echoServer.start();
 
         assertTrue(socketWrapper.isCreateSocketAndListenCalled());
     }
@@ -27,8 +27,9 @@ class ServerSocketWrapperTest {
     @Test
     void receivedMessageEqualsHello() {
         var socketWrapper = mockServerSocketWrapperSetup("hello\n");
+        var echoServer = new EchoServer(socketWrapper);
 
-        socketWrapper.run();
+        echoServer.start();
         var receivedMessage = socketWrapper.getReceivedClientMessage();
 
         assertEquals("hello", receivedMessage);
@@ -39,8 +40,9 @@ class ServerSocketWrapperTest {
         var output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
         var socketWrapper = mockServerSocketWrapperSetup("hello\n");
+        var echoServer = new EchoServer(socketWrapper);
 
-        socketWrapper.run();
+        echoServer.start();
         var isSendClientMessageCalled = socketWrapper.isSendClientMessageCalled();
 
         assertEquals("Echo from server: hello\n", output.toString());
@@ -50,8 +52,9 @@ class ServerSocketWrapperTest {
     @Test
     void closeIsCalledWhenClientMessageEqualsExit() {
         var socketWrapper = mockServerSocketWrapperSetup("exit\n");
+        var echoServer = new EchoServer(socketWrapper);
 
-        socketWrapper.run();
+        echoServer.start();
         var isCloseCalled = socketWrapper.isCloseCalled();
         var isSendClientMessageCalled = socketWrapper.isSendClientMessageCalled();
 

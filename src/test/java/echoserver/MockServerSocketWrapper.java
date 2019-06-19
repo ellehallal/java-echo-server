@@ -2,20 +2,17 @@ package echoserver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-public class MockServerSocketWrapper extends Thread implements SocketWrapper {
+public class MockServerSocketWrapper implements SocketWrapper {
 
     private final BufferedReader input;
-    private final PrintWriter output;
     private boolean isCreateSocketAndListenCalled = false;
     private String receivedClientMessage;
     private boolean isSendClientMessageCalled = false;
     private boolean isCloseCalled = false;
 
-    public MockServerSocketWrapper(BufferedReader input, PrintWriter output) {
+    public MockServerSocketWrapper(BufferedReader input) {
         this.input = input;
-        this.output = output;
     }
 
     @Override
