@@ -42,6 +42,7 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
     }
 
     public void receiveClientMessage() {
+        System.out.println("Client connected");
         try {
             clientMessage = input.readLine();
         } catch (IOException e) {
