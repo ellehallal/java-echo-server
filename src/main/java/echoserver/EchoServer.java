@@ -1,8 +1,13 @@
 package echoserver;
 
 public class EchoServer {
-    public static void main(String[] args) {
-        var serverSocketWrapper = new ServerSocketWrapper(8080);
-        serverSocketWrapper.start();
+    public final SocketWrapper socket;
+
+    public EchoServer(SocketWrapper socket) {
+        this.socket = socket;
+    }
+
+    public void start() {
+        socket.run();
     }
 }
