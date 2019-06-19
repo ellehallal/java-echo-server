@@ -20,9 +20,15 @@ public class MockServerSocketWrapper extends Thread implements SocketWrapper {
     @Override
     public void run() {
         createSocketAndListen();
-        receiveClientMessage();
-        sendClientMessage();
-        close();
+        while(true) {
+            receiveClientMessage();
+            if(receivedClientMessage.equals(SocketAction.exit.toString())) {
+                close();
+                break;
+            }
+            sendClientMessage();
+            break;
+        }
     }
 
     public void createSocketAndListen() {

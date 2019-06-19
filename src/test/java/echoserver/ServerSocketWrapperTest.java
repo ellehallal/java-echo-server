@@ -36,7 +36,7 @@ class ServerSocketWrapperTest {
     }
 
     @Test
-    void sendMessage() {
+    void sentMessageIncludesHello() {
         var output = new ByteArrayOutputStream();
         System.setOut(new PrintStream(output));
         var socketWrapper = mockServerSocketWrapperSetup("hello\n");
@@ -47,8 +47,8 @@ class ServerSocketWrapperTest {
     }
 
     @Test
-    void close() {
-        var socketWrapper = mockServerSocketWrapperSetup("hello\n");
+    void closeIsCalledWhenClientMessageEqualsExit() {
+        var socketWrapper = mockServerSocketWrapperSetup("exit\n");
 
         socketWrapper.run();
         var isCloseCalled = socketWrapper.isCloseCalled();
