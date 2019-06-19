@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerSocketWrapper extends Thread implements SocketWrapper {
+public class ServerSocketWrapper implements SocketWrapper {
 
     private final int portNumber;
     private ServerSocket serverSocket;

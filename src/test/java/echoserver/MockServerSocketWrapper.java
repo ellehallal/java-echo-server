@@ -3,7 +3,7 @@ package echoserver;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class MockServerSocketWrapper extends Thread implements SocketWrapper {
+public class MockServerSocketWrapper implements SocketWrapper {
 
     private final BufferedReader input;
     private boolean isCreateSocketAndListenCalled = false;
