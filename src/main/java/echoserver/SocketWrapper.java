@@ -2,8 +2,8 @@ package echoserver;
 
 public interface SocketWrapper {
 
-    void createPortAndListen(int portNumber);
-    String receiveMessage();
-    void sendMessage(String message);
+    void createSocketAndListen();
+    void receiveClientMessage();
+    void sendClientMessage();
     void close();
 }
