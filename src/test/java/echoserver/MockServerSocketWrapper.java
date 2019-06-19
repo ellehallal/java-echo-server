@@ -20,10 +20,11 @@ public class MockServerSocketWrapper extends Thread implements SocketWrapper {
     public void run() {
         createSocketAndListen();
         receiveClientMessage();
+        sendClientMessage();
     }
 
     public void createSocketAndListen() {
-        this.isCreateSocketAndListenCalled = true;
+        isCreateSocketAndListenCalled = true;
     }
 
     public void receiveClientMessage() {
@@ -32,11 +33,10 @@ public class MockServerSocketWrapper extends Thread implements SocketWrapper {
         } catch (IOException e) {
             System.out.println("Error receiving message: " + e.getMessage());
         }
-
     }
 
-    public void sendClientMessage(String message) {
-
+    public void sendClientMessage() {
+        System.out.println("Echo from server: " + receivedClientMessage);
     }
 
     public void close() {

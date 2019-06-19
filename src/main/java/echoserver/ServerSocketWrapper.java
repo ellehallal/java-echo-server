@@ -24,6 +24,7 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
     public void run() {
         createSocketAndListen();
         receiveClientMessage();
+        sendClientMessage();
     }
 
     public void createSocketAndListen() {
@@ -47,8 +48,8 @@ public class ServerSocketWrapper extends Thread implements SocketWrapper {
         }
     }
 
-    public void sendClientMessage(String message) {
-
+    public void sendClientMessage() {
+        output.println("Echo from server: " + clientMessage);
     }
 
     public void close() {

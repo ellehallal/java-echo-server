@@ -2,12 +2,10 @@ package echoserver;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ServerSocketWrapperTest {
 
@@ -39,6 +37,13 @@ class ServerSocketWrapperTest {
 
     @Test
     void sendMessage() {
+        var output = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output));
+        var socketWrapper = mockServerSocketWrapperSetup();
+
+        socketWrapper.run();
+
+        assertEquals("Echo from server: hello\n", output.toString());
     }
 
     @Test
