@@ -19,7 +19,7 @@ public class MockServerSocketWrapper implements SocketWrapper {
         createSocketAndListen();
 
         while(true) {
-            receiveClientMessage();
+            receiveClientMessage2();
             if(receivedClientMessage.equals(SocketAction.exit.toString())) {
                 close();
                 break;
@@ -34,10 +34,16 @@ public class MockServerSocketWrapper implements SocketWrapper {
     }
 
     public void receiveClientMessage() {
+    }
+
+    @Override
+    public String receiveClientMessage2() {
         try {
             receivedClientMessage = input.readLine();
+            return receivedClientMessage;
         } catch (IOException e) {
             System.out.println("Error receiving message: " + e.getMessage());
+            return receivedClientMessage;
         }
     }
 
