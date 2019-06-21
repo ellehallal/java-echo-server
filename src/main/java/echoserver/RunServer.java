@@ -12,9 +12,15 @@ public class RunServer {
             echoServer.openConnection();
             echoServer.run();
             echoServer.close();
+
         } catch (Exception e) {
-            if (e instanceof EchoServer.SocketCloseException) {
-                System.out.println(Messages.socketClosingErrorMessage("Boom!"));
+            if (e instanceof SocketCloseException) {
+                System.out.println
+                        (Messages.socketClosingErrorMessage(e.getMessage()));
+            }
+            else if (e instanceof SocketOpenException) {
+                System.out.println
+                        (Messages.socketOpeningErrorMessage(e.getMessage()));
             }
         }
     }

@@ -43,18 +43,4 @@ public class EchoServer {
             throw new SocketCloseException(e);
         }
     }
-
-    class SocketOpenException extends RuntimeException {
-
-        public SocketOpenException(Exception cause) {
-            super(cause);
-        }
-    }
-
-    class SocketCloseException extends RuntimeException {
-
-        public SocketCloseException(Exception cause) {
-            super(cause);
-        }
-    }
 }

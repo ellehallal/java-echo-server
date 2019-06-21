@@ -19,6 +19,10 @@ public class Messages {
         return "Server error: " + message;
     }
 
+    public static String socketOpeningErrorMessage(String message) {
+        return "Socket opening error: " + message;
+    }
+
     public static String socketClosingErrorMessage(String message) {
         return "Socket closing error: " + message;
     }

@@ -36,6 +36,13 @@ class MessagesTest {
     }
 
     @Test
+    void returnsSocketOpeningErrorMessage() {
+        var message = messages.socketOpeningErrorMessage("an error");
+
+        assertEquals("Socket opening error: an error", message);
+    }
+
+    @Test
     void returnsSocketClosingErrorMessage() {
         var message = messages.socketClosingErrorMessage("an error");
 
