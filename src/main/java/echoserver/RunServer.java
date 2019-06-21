@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 public class RunServer {
     public static void main(String[] args) throws IOException {
         var serverSocket = new ServerSocket(8080);
-//        var socket = new MessageSender(serverSocket.accept());
+
         try {
             var echoServer = new EchoServer(serverSocket);
             echoServer.openConnection();
