@@ -7,11 +7,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientHandler extends Thread {
-    public final Socket socket;
+    private final Socket socket;
     private BufferedReader input;
     private PrintWriter output;
 
-    public ClientHandler(Socket socket) {
+    ClientHandler(Socket socket) {
         this.socket = socket;
     }
 
