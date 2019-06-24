@@ -37,6 +37,7 @@ public class EchoServer extends Thread {
     }
 
     private void sendAndReceiveMessages() {
+        output.println(Messages.clientInstructionsMessage());
         new MessageSender(input, output).run();
     }
 

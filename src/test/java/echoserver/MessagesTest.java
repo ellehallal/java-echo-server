@@ -22,6 +22,14 @@ class MessagesTest {
     }
 
     @Test
+    void returnsClientInstructionsMessage() {
+        var message = messages.clientInstructionsMessage();
+        var expectedMessage = "Send messages to the server. Type 'exit' to disconnect from the server.";
+
+        assertEquals(expectedMessage, message);
+    }
+
+    @Test
     void returnsEchoFromServerMessage() {
         var message = messages.echoFromServerMessage("hello");
 

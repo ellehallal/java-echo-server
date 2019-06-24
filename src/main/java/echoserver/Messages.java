@@ -8,7 +8,10 @@ public class Messages {
 
     public static String clientDisconnectedMessage() {
         return "Client disconnected";
+    }
 
+    public static String clientInstructionsMessage() {
+        return "Send messages to the server. Type 'exit' to disconnect from the server.";
     }
 
     public static String echoFromServerMessage(String clientMessage) {
