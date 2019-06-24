@@ -7,13 +7,13 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class EchoServer extends Thread {
+public class ClientHandler extends Thread {
     public final ServerSocket serverSocket;
     private BufferedReader input;
     private PrintWriter output;
     private Socket socket;
 
-    public EchoServer(ServerSocket serverSocket) {
+    public ClientHandler(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }
 

@@ -8,7 +8,7 @@ public class RunServer {
         var serverSocket = new ServerSocket(8080);
 
         try {
-            var echoServer = new EchoServer(serverSocket);
+            var echoServer = new ClientHandler(serverSocket);
             echoServer.run();
 
         } catch (Exception e) {
