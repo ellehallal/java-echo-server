@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class EchoServer {
+public class EchoServer extends Thread {
     public final ServerSocket serverSocket;
     private BufferedReader input;
     private PrintWriter output;
@@ -17,7 +17,14 @@ public class EchoServer {
         this.serverSocket = serverSocket;
     }
 
-    public void openConnection() {
+    @Override
+    public void run() {
+        openConnection();
+        sendAndReceiveMessages();
+        closeConnection();
+    }
+
+    private void openConnection() {
         try {
             socket = serverSocket.accept();
             var inputStreamReader = new InputStreamReader(socket.getInputStream());
@@ -29,12 +36,12 @@ public class EchoServer {
         }
     }
 
-    public void run() {
+    private void sendAndReceiveMessages() {
         new MessageSender(input, output).run();
     }
 
 
-    public void close() {
+    private void closeConnection() {
         try {
             input.close();
             output.close();

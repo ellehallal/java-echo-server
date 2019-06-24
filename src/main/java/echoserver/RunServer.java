@@ -9,9 +9,7 @@ public class RunServer {
 
         try {
             var echoServer = new EchoServer(serverSocket);
-            echoServer.openConnection();
             echoServer.run();
-            echoServer.close();
 
         } catch (Exception e) {
             if (e instanceof SocketCloseException) {
