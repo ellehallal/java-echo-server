@@ -8,9 +8,7 @@ public class RunServer {
         var serverSocket = new ServerSocket(8080);
 
         try {
-            var socket = serverSocket.accept();
-            var echoServer = new ClientHandler(socket);
-            echoServer.run();
+            new EchoServer(serverSocket).start();
 
         } catch (Exception e) {
             if (e instanceof SocketCloseException) {
