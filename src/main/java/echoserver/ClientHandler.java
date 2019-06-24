@@ -17,12 +17,12 @@ public class ClientHandler extends Thread {
 
     @Override
     public void run() {
-        openConnection();
+        setInputAndOutput();
         sendAndReceiveMessages();
         closeConnection();
     }
 
-    private void openConnection() {
+    private void setInputAndOutput() {
         try {
             var inputStreamReader = new InputStreamReader(socket.getInputStream());
             input = new BufferedReader(inputStreamReader);
