@@ -4,17 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 public class ClientHandler extends Thread {
-    public final ServerSocket serverSocket;
+    public final Socket socket;
     private BufferedReader input;
     private PrintWriter output;
-    private Socket socket;
 
-    public ClientHandler(ServerSocket serverSocket) {
-        this.serverSocket = serverSocket;
+    public ClientHandler(Socket socket) {
+        this.socket = socket;
     }
 
     @Override
@@ -26,7 +24,6 @@ public class ClientHandler extends Thread {
 
     private void openConnection() {
         try {
-            socket = serverSocket.accept();
             var inputStreamReader = new InputStreamReader(socket.getInputStream());
             input = new BufferedReader(inputStreamReader);
             output = new PrintWriter(socket.getOutputStream(), true);
@@ -46,6 +43,7 @@ public class ClientHandler extends Thread {
         try {
             input.close();
             output.close();
+            socket.close();
             System.out.println(Messages.clientDisconnectedMessage());
         } catch (IOException e) {
             throw new SocketCloseException(e);
