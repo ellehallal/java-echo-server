@@ -9,8 +9,8 @@ import java.util.concurrent.ExecutorService;
 
 public class EchoServer {
     private final ServerSocket serverSocket;
-    private ExecutorService executor;
-    private ArrayList<Socket> clientSockets = new ArrayList<>();
+    private final ExecutorService executor;
+    private final ArrayList<Socket> clientSockets = new ArrayList<>();
 
 
     EchoServer(ServerSocket serverSocket, ExecutorService executor) {
