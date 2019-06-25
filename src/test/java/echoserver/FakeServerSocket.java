@@ -8,15 +8,16 @@ import java.util.List;
 
 class FakeServerSocket extends ServerSocket {
     private List<FakeClientSocket> fakeClientSockets = new ArrayList<>();
-    private final OutputStream output;
+    private List<FakeClientSocket> acceptedClientSockets = new ArrayList<>();
 
-    FakeServerSocket(OutputStream output) throws IOException {
-        this.output = output;
+    public FakeServerSocket() throws IOException {
     }
 
     @Override
     public Socket accept() {
-        return fakeClientSockets.remove(0);
+        var socket = fakeClientSockets.remove(0);
+        acceptedClientSockets.add(socket);
+        return socket;
     }
 
     void setupFakeClientSockets() {
@@ -25,9 +26,13 @@ class FakeServerSocket extends ServerSocket {
         var input3 = new ByteArrayInputStream("Client 3's message".getBytes());
         var input4 = new ByteArrayInputStream("Client 4's message".getBytes());
 
-        fakeClientSockets.add(new FakeClientSocket(input1, output));
-        fakeClientSockets.add(new FakeClientSocket(input2, output));
-        fakeClientSockets.add(new FakeClientSocket(input3, output));
-        fakeClientSockets.add(new FakeClientSocket(input4, output));
+        fakeClientSockets.add(new FakeClientSocket(input1, new ByteArrayOutputStream()));
+        fakeClientSockets.add(new FakeClientSocket(input2, new ByteArrayOutputStream()));
+        fakeClientSockets.add(new FakeClientSocket(input3, new ByteArrayOutputStream()));
+        fakeClientSockets.add(new FakeClientSocket(input4, new ByteArrayOutputStream()));
+    }
+
+    public List<FakeClientSocket> getAcceptedClientSockets() {
+        return acceptedClientSockets;
     }
 }
