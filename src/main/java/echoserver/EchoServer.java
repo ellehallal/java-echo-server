@@ -24,13 +24,13 @@ public class EchoServer {
 
     void listenForClients() {
         try {
-            System.out.println("Listening for clients...");
+            System.out.println(Messages.listeningForClientsMessage());
 
             var clientSocket = serverSocket.accept();
             executor.execute(new ClientHandler(clientSocket));
             clientSockets.add(clientSocket);
 
-            System.out.println("Client accepted");
+            System.out.println(Messages.clientConnectedMessage());
         } catch (IOException e) {
             throw new SocketOpenException(e);
         }

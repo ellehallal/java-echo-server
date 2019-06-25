@@ -2,6 +2,10 @@ package echoserver;
 
 class Messages {
 
+    static String listeningForClientsMessage() {
+        return "Listening for clients...";
+    }
+
     static String clientConnectedMessage() {
         return "Client connected";
     }
