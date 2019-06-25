@@ -19,18 +19,19 @@ public class EchoServer {
     }
 
     void start() {
+        ConsoleWriter.println(Messages.serverConnectedMessage());
         while (true) listenForClients();
     }
 
     void listenForClients() {
         try {
-            System.out.println(Messages.listeningForClientsMessage());
+            ConsoleWriter.println(Messages.listeningForClientsMessage());
 
             var clientSocket = serverSocket.accept();
             executor.execute(new ClientHandler(clientSocket));
             clientSockets.add(clientSocket);
 
-            System.out.println(Messages.clientConnectedMessage());
+            ConsoleWriter.println(Messages.clientConnectedMessage());
         } catch (IOException e) {
             throw new SocketOpenException(e);
         }

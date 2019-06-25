@@ -14,11 +14,11 @@ public class App {
 
         } catch (Exception e) {
             if (e instanceof SocketCloseException) {
-                System.out.println
+                ConsoleWriter.println
                         (Messages.socketClosingErrorMessage(e.getMessage()));
             }
             else if (e instanceof SocketOpenException) {
-                System.out.println
+                ConsoleWriter.println
                         (Messages.socketOpeningErrorMessage(e.getMessage()));
             }
         }

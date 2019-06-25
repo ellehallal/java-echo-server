@@ -62,4 +62,11 @@ class MessagesTest {
 
         assertEquals("Listening for clients...", message);
     }
+
+    @Test
+    void returnsServerConnectedMessage() {
+        var message = Messages.serverConnectedMessage();
+
+        assertEquals("Server connected", message);
+    }
 }
