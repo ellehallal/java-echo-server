@@ -2,25 +2,41 @@ package echoserver;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
 
 public class EchoServer {
     private final ServerSocket serverSocket;
+    private ExecutorService executor;
+    private ArrayList<Socket> clientSockets = new ArrayList<>();
 
-    EchoServer(ServerSocket serverSocket) {
+
+    EchoServer(ServerSocket serverSocket, ExecutorService executor) {
         this.serverSocket = serverSocket;
+        this.executor = executor;
     }
 
-    public void start() {
-        System.out.println("Server started");
-        listenForClients();
+    void start() {
+        while (true) listenForClients();
     }
 
-    public void listenForClients() {
+    void listenForClients() {
         try {
+            System.out.println("Listening for clients...");
+
             var clientSocket = serverSocket.accept();
-            new ClientHandler(clientSocket).run();
+            executor.execute(new ClientHandler(clientSocket));
+            clientSockets.add(clientSocket);
+
+            System.out.println("Client accepted");
         } catch (IOException e) {
             throw new SocketOpenException(e);
         }
+    }
+
+    List<Socket> getClientSockets() {
+        return clientSockets;
     }
 }

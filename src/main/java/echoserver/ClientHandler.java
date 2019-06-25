@@ -27,7 +27,6 @@ public class ClientHandler extends Thread {
             var inputStreamReader = new InputStreamReader(socket.getInputStream());
             input = new BufferedReader(inputStreamReader);
             output = new PrintWriter(socket.getOutputStream(), true);
-            System.out.println(Messages.clientConnectedMessage());
         } catch (IOException e) {
             throw new SocketOpenException(e);
         }
