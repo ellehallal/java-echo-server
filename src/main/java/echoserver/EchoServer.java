@@ -2,14 +2,14 @@ package echoserver;
 
 import java.io.IOException;
 import java.net.ServerSocket;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executor;
 
 class EchoServer {
     private final ServerSocket serverSocket;
-    private final ExecutorService executor;
+    private final Executor executor;
 
 
-    EchoServer(ServerSocket serverSocket, ExecutorService executor) {
+    EchoServer(ServerSocket serverSocket, Executor executor) {
         this.serverSocket = serverSocket;
         this.executor = executor;
     }

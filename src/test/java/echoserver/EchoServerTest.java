@@ -3,7 +3,6 @@ package echoserver;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.concurrent.Executors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,14 +16,13 @@ class EchoServerTest {
         var expectedOutput3 = "Echo from server: Client 3's message\n";
         var expectedOutput4 = "Echo from server: Client 4's message\n";
         var fakeServerSocket = new FakeServerSocket();
-        var executor = Executors.newFixedThreadPool(4);
+        var executor = new CurrentThreadExecutor();
         var echoServer = new EchoServer(fakeServerSocket, executor);
 
         echoServer.listenForClients();
         echoServer.listenForClients();
         echoServer.listenForClients();
         echoServer.listenForClients();
-        Thread.sleep(100);
 
         assertThat(fakeServerSocket.getSocketOutputString(0)).contains(expectedOutput1);
         assertThat(fakeServerSocket.getSocketOutputString(1)).contains(expectedOutput2);
