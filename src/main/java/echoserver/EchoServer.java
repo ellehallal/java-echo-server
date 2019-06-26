@@ -7,6 +7,7 @@ import java.util.concurrent.Executor;
 class EchoServer {
     private final ServerSocket serverSocket;
     private final Executor executor;
+    private boolean isServerRunning = true;
 
 
     EchoServer(ServerSocket serverSocket, Executor executor) {
@@ -16,7 +17,7 @@ class EchoServer {
 
     void start() {
         ConsoleWriter.println(Messages.serverConnectedMessage());
-        while (true) listenForClients();
+        while (isServerRunning) listenForClients();
     }
 
     void listenForClients() {
