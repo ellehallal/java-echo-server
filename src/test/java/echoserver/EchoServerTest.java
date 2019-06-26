@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class EchoServerTest {
 
     @Test
-    void returnsInputOfFourDifferentClients() throws IOException, InterruptedException {
+    void returnsInputOfFourDifferentClients() throws IOException {
 
         var expectedOutput1 = "Echo from server: Client 1's message\n";
         var expectedOutput2 = "Echo from server: Client 2's message\n";
