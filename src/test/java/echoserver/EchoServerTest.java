@@ -27,13 +27,9 @@ class EchoServerTest {
         echoServer.listenForClients();
         Thread.sleep(100);
 
-        assertThat(getFakeClientSocketOutputString(0, fakeServerSocket)).contains(expectedOutput1);
-        assertThat(getFakeClientSocketOutputString(1, fakeServerSocket)).contains(expectedOutput2);
-        assertThat(getFakeClientSocketOutputString(2, fakeServerSocket)).contains(expectedOutput3);
-        assertThat(getFakeClientSocketOutputString(3, fakeServerSocket)).contains(expectedOutput4);
-    }
-
-    String getFakeClientSocketOutputString(int index, FakeServerSocket fakeServerSocket) {
-        return fakeServerSocket.getAcceptedClientSockets().get(index).getOutputStream().toString();
+        assertThat(fakeServerSocket.getSocketOutputString(0)).contains(expectedOutput1);
+        assertThat(fakeServerSocket.getSocketOutputString(1)).contains(expectedOutput2);
+        assertThat(fakeServerSocket.getSocketOutputString(2)).contains(expectedOutput3);
+        assertThat(fakeServerSocket.getSocketOutputString(3)).contains(expectedOutput4);
     }
 }

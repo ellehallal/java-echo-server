@@ -32,7 +32,11 @@ class FakeServerSocket extends ServerSocket {
         fakeClientSockets.add(new FakeClientSocket(input4, new ByteArrayOutputStream()));
     }
 
-    public List<FakeClientSocket> getAcceptedClientSockets() {
+    String getSocketOutputString(int index) {
+        return getAcceptedClientSockets().get(index).getOutputStream().toString();
+    }
+
+    private List<FakeClientSocket> getAcceptedClientSockets() {
         return acceptedClientSockets;
     }
 }
