@@ -17,7 +17,6 @@ class EchoServerTest {
         var expectedOutput3 = "Echo from server: Client 3's message\n";
         var expectedOutput4 = "Echo from server: Client 4's message\n";
         var fakeServerSocket = new FakeServerSocket();
-        fakeServerSocket.setupFakeClientSockets();
         var executor = Executors.newFixedThreadPool(4);
         var echoServer = new EchoServer(fakeServerSocket, executor);
 
