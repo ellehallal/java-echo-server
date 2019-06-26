@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class MessageSender {
+class MessageSender {
 
     private final BufferedReader input;
     private final PrintWriter output;

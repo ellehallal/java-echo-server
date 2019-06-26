@@ -1,5 +1,5 @@
 package echoserver;
 
-public enum SocketAction {
+enum SocketAction {
     exit
 }

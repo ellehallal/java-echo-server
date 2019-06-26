@@ -1,46 +1,34 @@
 package echoserver;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
-import java.net.Socket;
+import java.util.concurrent.ExecutorService;
 
-public class EchoServer {
-    public final ServerSocket serverSocket;
-    private BufferedReader input;
-    private PrintWriter output;
-    private Socket socket;
+class EchoServer {
+    private final ServerSocket serverSocket;
+    private final ExecutorService executor;
 
-    public EchoServer(ServerSocket serverSocket) {
+
+    EchoServer(ServerSocket serverSocket, ExecutorService executor) {
         this.serverSocket = serverSocket;
+        this.executor = executor;
     }
 
-    public void openConnection() {
+    void start() {
+        ConsoleWriter.println(Messages.serverConnectedMessage());
+        while (true) listenForClients();
+    }
+
+    void listenForClients() {
         try {
-            socket = serverSocket.accept();
-            var inputStreamReader = new InputStreamReader(socket.getInputStream());
-            input = new BufferedReader(inputStreamReader);
-            output = new PrintWriter(socket.getOutputStream(), true);
-            System.out.println(Messages.clientConnectedMessage());
+            ConsoleWriter.println(Messages.listeningForClientsMessage());
+
+            var clientSocket = serverSocket.accept();
+            executor.execute(new ClientHandler(clientSocket));
+
+            ConsoleWriter.println(Messages.clientConnectedMessage());
         } catch (IOException e) {
             throw new SocketOpenException(e);
-        }
-    }
-
-    public void run() {
-        new MessageSender(input, output).run();
-    }
-
-
-    public void close() {
-        try {
-            input.close();
-            output.close();
-            System.out.println(Messages.clientDisconnectedMessage());
-        } catch (IOException e) {
-            throw new SocketCloseException(e);
         }
     }
 }
