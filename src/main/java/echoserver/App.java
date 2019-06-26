@@ -9,7 +9,7 @@ public class App {
         var serverSocket = new ServerSocket(8080);
 
         try {
-            var executor = Executors.newFixedThreadPool(4);
+            var executor = Executors.newCachedThreadPool();
             new EchoServer(serverSocket, executor).start();
 
         } catch (Exception e) {
